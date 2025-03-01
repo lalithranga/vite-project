@@ -18,6 +18,8 @@ export default function Product() {
                 .then((res) => {
                     setProduct(res.data);
                     setProductLoadeer(true);
+                    // console.log(res.data);
+                    console.log(res.data.image)
                 })
                 .catch(err => {
                     console.error(err);
@@ -27,7 +29,7 @@ export default function Product() {
 
     const handleDelete = (id) => {
         const token = localStorage.getItem("token");
-        axios.delete(`${import.meta.env.VITE_BACKEND_UR}/api/products/${id}`, {
+        axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(() => {
@@ -52,8 +54,9 @@ export default function Product() {
                             <th className="px-5 py-3 text-left text-xs font-semibold uppercase">Name</th>
                             <th className="px-5 py-3 text-left text-xs font-semibold uppercase">Price</th>
                             <th className="px-5 py-3 text-left text-xs font-semibold uppercase">Description</th>
-                            <th className="px-5 py-3 text-left text-xs font-semibold uppercase">Category</th>
+                            <th className="px-5 py-3 text-left text-xs font-semibold uppercase">Catgory</th>
                             <th className="px-5 py-3 text-left text-xs font-semibold uppercase">Dimensions</th>
+                            <th className="px-5 py-3 text-left text-xs font-semibold uppercase">Image</th>
                             <th className="px-5 py-3 text-left text-xs font-semibold uppercase">Actions</th>
                         </tr>
                     </thead>
@@ -64,8 +67,10 @@ export default function Product() {
                                 <td className="px-5 py-4 bg-white text-sm">{item.name}</td>
                                 <td className="px-5 py-4 bg-white text-sm">{item.price}</td>
                                 <td className="px-5 py-4 bg-white text-sm">{item.description}</td>
-                                <td className="px-5 py-4 bg-white text-sm">{item.category}</td>
+                                <td className="px-5 py-4 bg-white text-sm">{item.catagory}</td>
                                 <td className="px-5 py-4 bg-white text-sm">{item.dimensions}</td>
+                                <td className="px-5 py-4 bg-white text-sm">{item.image}</td>
+
                                 <td className="px-5 py-4 bg-white text-sm">
                                     <button
                                         className="bg-blue-500 text-white px-3 py-1 rounded-md mr-2 hover:bg-blue-700"

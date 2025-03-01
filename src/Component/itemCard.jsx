@@ -6,7 +6,7 @@ export default function ItemCard({product}) {
        
     <div className="bg-white shadow-lg rounded-2xl p-4 w-80 hover:shadow-2xl hover:scale-105 transition">
       <img
-        src={product.image}
+        src={product.images}
         alt={product.name}
         className="w-full h-48 object-cover rounded-lg"
       />

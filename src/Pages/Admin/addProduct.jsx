@@ -2,6 +2,7 @@ import { useState } from "react"; // Import useState for managing input field st
 import toast from "react-hot-toast"; // Import toast for showing notifications
 import axios from "axios"; // Import axios for making HTTP requests
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection after product addition
+import mediaUpload from "../../utils/mediaUpload";
 
 export default function AddProduct() {
     /* Define state variables for form fields */
@@ -11,14 +12,25 @@ export default function AddProduct() {
     const [description, setDescription] = useState(""); // Product description
     const [category, setCategory] = useState("Audio"); // Default category set to "Audio"
     const [dimensions, setDimensions] = useState(""); // Product dimensions
-    const [image, setImage] = useState(""); // Image URL (not currently used in form)
+    const [image, setImage] = useState([] ); // Image URL (not currently used in form)
     
     const navigate = useNavigate(); // Hook for redirecting after form submission
 
     /* Function to handle form submission */
-    async function addProduct(event) {
-        event.preventDefault(); // Prevent default form submission behavior
+    async function addProduct() {
 
+        event.preventDefault();
+        const promises=[];
+
+        for (let i = 0; i < image.length; i++) {
+            const promise = await mediaUpload(image[i]);
+
+            promises.push(promise);
+        }
+        
+   
+
+         
         console.log({ key, name, price, description, category, dimensions, image }); // Debugging log
 
         const token = localStorage.getItem("token"); // Retrieve authentication token from local storage
@@ -26,15 +38,17 @@ export default function AddProduct() {
 
         if (token) {
             try {
+
+                const imageurl = await Promise.all(promises);
                 /* Send a POST request to the backend to add the product */
                 const result = await axios.post("http://localhost:3000/api/products", {
                     key: key,
                     name: name,
                     price: price,
                     description: description,
-                    category: category,
+                    catagory: category,
                     dimensions: dimensions,
-                    image: image,
+                    images: imageurl,
                 }, { 
                     headers: {
                         Authorization: "Bearer " + token // Include authentication token
@@ -117,6 +131,13 @@ export default function AddProduct() {
                     <option value="Lights">Lights</option>
                     <option value="Instrument">Instrument</option>
                 </select>
+                <input
+                    type="file"
+                    name="image"
+                    multiple
+                    className="border border-gray-300 p-2 rounded-2xl bg-gray-100 "
+                    onChange={(e) => setImage(e.target.files)}
+                />
 
                 {/* Submit Button */}
                 <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
