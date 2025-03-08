@@ -1,8 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 export default function Contact() {
+    useEffect(() => {
+            AOS.init();
+            AOS.refresh();
+          }, []);
+        
     // State Variables
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -36,7 +44,11 @@ export default function Contact() {
     }
 
     return (
-        <div className="h-full w-full flex flex-row justify-evenly mt-1">
+        <div className="h-full w-full flex flex-row justify-evenly mt-1 "   data-aos="fade-left"
+  data-aos-offset="500"
+  data-aos-duration="500"  // 10000 is 10 seconds which is very slow
+  data-aos-easing="ease-in-out"
+  data-aos-once="false">
             {/* Left Section - Contact Info */}
             <div className="flex flex-col justify-center p-10 text-gray-900 h-full w-[500px]">
                 <h1 className="text-3xl font-bold mb-4">How can we help?</h1>

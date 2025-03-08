@@ -6,6 +6,8 @@ import Error from "./Error"
 
 import ItemPage from "./itemPage"
 import ProductPage from "./productPage"
+import ProductView from "./poductView"
+import CartPage from "./cartPage"
 
 
 
@@ -28,6 +30,8 @@ export default function HomePage() {
                     <Route path="*" element={<Error/>} />
                     <Route path="/products" element={<ProductPage/>} />
                     <Route path="/item" element={<ItemPage/>}/>
+                    <Route path="/products/:key" element={<ProductView/>}/>
+                    <Route path="/cart" element={<CartPage/>} />
 
                    
                 </Routes>

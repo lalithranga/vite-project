@@ -12,7 +12,7 @@ export default function AddProduct() {
     const [description, setDescription] = useState(""); // Product description
     const [category, setCategory] = useState("Audio"); // Default category set to "Audio"
     const [dimensions, setDimensions] = useState(""); // Product dimensions
-    const [image, setImage] = useState([] ); // Image URL (not currently used in form)
+    const [image, setImage] = useState(); // Image URL (not currently used in form)
     
     const navigate = useNavigate(); // Hook for redirecting after form submission
 
@@ -20,6 +20,8 @@ export default function AddProduct() {
     async function addProduct() {
 
         event.preventDefault();
+       
+        
         const promises=[];
 
         for (let i = 0; i < image.length; i++) {
@@ -31,12 +33,18 @@ export default function AddProduct() {
    
 
          
-        console.log({ key, name, price, description, category, dimensions, image }); // Debugging log
+        console.log({ key, name, price, description, category, dimensions, image });
 
-        const token = localStorage.getItem("token"); // Retrieve authentication token from local storage
-        console.log(token); // Log token for debugging purposes
+        const token = localStorage.getItem("token"); 
+        console.log(token); 
 
         if (token) {
+            if (!image || image?.length === 0) {
+                toast.error("Please upload an image");
+                return;
+            }
+            
+
             try {
 
                 const imageurl = await Promise.all(promises);
@@ -136,7 +144,8 @@ export default function AddProduct() {
                     name="image"
                     multiple
                     className="border border-gray-300 p-2 rounded-2xl bg-gray-100 "
-                    onChange={(e) => setImage(e.target.files)}
+                    onChange={(e) => setImage(Array.from(e.target.files))}
+
                 />
 
                 {/* Submit Button */}

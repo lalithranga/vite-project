@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom";
+
 export default function ItemCard({product}) {
 
 
 
     return (
        
-    <div className="bg-white shadow-lg rounded-2xl p-4 w-80 hover:shadow-2xl hover:scale-105 transition">
+    <Link to={`/products/${product.key}`} className="bg-white shadow-lg rounded-2xl p-4 w-80 hover:shadow-2xl hover:scale-105 transition">
       <img
-        src={product.images}
+        src={product.images[0]}
         alt={product.name}
         className="w-full h-48 object-cover rounded-lg"
       />
@@ -24,7 +26,7 @@ export default function ItemCard({product}) {
           {product.availablity ? "In stock" : "Out of Stock"}
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 

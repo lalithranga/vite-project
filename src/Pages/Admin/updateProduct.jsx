@@ -19,13 +19,18 @@ export default function UpdateProduct() {
         e.preventDefault();
 
         try {
-            // Upload images in parallel
-            const imageUrls = await Promise.all([...image].map(file => mediaUpload(file)));
+            let imageUrls = location.state?.images || [];
 
             const token = localStorage.getItem("token");
             if (!token) {
                 console.error("No authentication token found.");
                 return;
+            }
+
+            if (image.length > 0) { // Upload only if new images are selected
+                const promises = image.map(file => mediaUpload(file));
+                const uploadedImages = await Promise.all(promises);
+                imageUrls = [...imageUrls, ...uploadedImages]; // Append new images to existing ones
             }
 
             const response = await axios.put(
