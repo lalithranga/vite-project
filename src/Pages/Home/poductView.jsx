@@ -7,9 +7,9 @@ import { addToCard } from "../../utils/cart";
 export default function ProductView() {
   const params = useParams();
   const [product, setProduct] = useState({});
+  const [ItemQuantity, setQuantity] = useState(1);
   const [state, setState] = useState("loading");
 
-  const [ItemQuantity, setQuantity] = useState(1);
 
   useEffect(() => {
     if (state === "loading") {
@@ -41,7 +41,7 @@ export default function ProductView() {
       <div className="h-full w-[49%] flex items-center justify-center">
         {state === "loading" && (
           <div className="w-full h-full flex justify-center items-center">
-            <div className="w-[50px] h-[50px] border-4 rounded-full border-t-green-500 animate-spin"></div>
+            <div className="w-[50px] h-[50px] border-4 rounded-full border-t-blue-500 animate-spin"></div>
           </div>
         )}
         {state === "loaded" && (

@@ -9,6 +9,7 @@ export default function LoadCart() {
             days : 1,
             startingDate : formatDate(new Date()),
             endingDate : formatDate(new Date()),
+            
 
         }
         const cartString = JSON.stringify(cart);

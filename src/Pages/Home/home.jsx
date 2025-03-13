@@ -21,7 +21,7 @@ export default function () {
   data-aos-duration="500"  // 10000 is 10 seconds which is very slow
   data-aos-easing="ease-in-out"
   data-aos-once="false"    // If you want it to replay on scroll up, this should be false
-  className="bg-green-500 h-[100px] w-full"
+  className=" h-[100px] w-full"
 >
   Scroll to see effect!
 </div>

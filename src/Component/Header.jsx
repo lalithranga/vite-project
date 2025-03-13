@@ -1,8 +1,14 @@
 import { FaCartShopping } from "react-icons/fa6"
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 
 export default function Header() {
+  const navigate = useNavigate();
+
+  const handleMouseEnter = (path) => {
+    navigate(path);
+  };
 
   return (
 
@@ -11,7 +17,7 @@ export default function Header() {
     <Link to="/" className="text-white text-lg font-semibold hover:text-gray-200 transition">Home</Link>
     <Link to="/products" className="text-white text-lg font-semibold hover:text-gray-200 transition">Products</Link>
     <Link to="/about" className="text-white text-lg font-semibold hover:text-gray-200 transition"></Link>
-    <Link to="/contact" className="text-white text-lg font-semibold hover:text-gray-200 transition">Contact</Link>
+    <Link to="/contact" className="text-white text-lg font-semibold hover:text-gray-200 transition" onMouseEnter={() => handleMouseEnter("/contact")}>Contact</Link>
   </div>
 
   {/* Container for Cart and Login buttons */}
